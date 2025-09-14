@@ -2,11 +2,13 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: "src", // dossier racine de ton projet
+  base: "/sleepoutside/", // 👈 ajoute ça (nom exact de ton repo)
+
+  root: "src",
 
   build: {
-    outDir: "../dist", // dossier de sortie après build
-    emptyOutDir: true, // vide dist à chaque build
+    outDir: "../dist",
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         main: resolve(__dirname, "src/index.html"),
@@ -18,7 +20,6 @@ export default defineConfig({
   },
 
   server: {
-    port: 5500, // port local
+    port: 5500,
   },
 });
-
