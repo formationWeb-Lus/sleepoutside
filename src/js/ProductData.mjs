@@ -1,22 +1,26 @@
+function convertToJson(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Bad Response");
+  }
+}
+
 export default class ProductData {
   constructor(category) {
     this.category = category;
-
-    // Compatible local et GitHub Pages
-    const base = (import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : "./";
-    this.path = `${base}json/${this.category}.json`;
+    // Base URL GitHub Pages
+    this.path = `/sleepoutside/json/${this.category}.json`;
   }
 
   getData() {
     return fetch(this.path)
-      .then(res => {
-        if (!res.ok) throw new Error("Bad Response");
-        return res.json();
-      });
+      .then(convertToJson)
+      .then((data) => data);
   }
 
   async findProductById(id) {
     const products = await this.getData();
-    return products.find(item => item.Id === id);
+    return products.find((item) => item.Id === id);
   }
 }
